@@ -1,15 +1,15 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 agent-memory-kit 引导式安装器
 ==============================
-作用：将"docs治理体系 + Agent外挂记忆"整套方法论快速部署到任意项目。
-设计理念：不只是复制文件，而是引导用户建立完整的 Agent 记忆基础设施。
+作用:将"docs治理体系 + Agent外挂记忆"整套方法论快速部署到任意项目.
+设计理念:不只是复制文件,而是引导用户建立完整的 Agent 记忆基础设施.
 
-用法：
-  python setup.py <docs_path>                    # 交互式（推荐首次使用）
+用法:
+  python setup.py <docs_path>                    # 交互式(推荐首次使用)
   python setup.py <docs_path> --name "项目名"    # 非交互式
-  python setup.py <docs_path> --quick             # 快速模式（跳过已有文件）
-'''
+  python setup.py <docs_path> --quick             # 快速模式(跳过已有文件)
+"""
 
 import os
 import sys
@@ -27,27 +27,27 @@ DOCS_TEMPLATE_DIR = TEMPLATE_DIR / "docs"
 # ═══════════════════════════════════════════════════════
 
 def collect_project_info(args):
-    """交互式收集项目信息，或从命令行参数读取"""
+    """交互式收集项目信息,或从命令行参数读取"""
     info = {}
     
     if args.name:
         info["name"] = args.name
     else:
-        info["name"] = input("\n项目名称（如 MyProject）: ").strip()
+        info["name"] = input("\n项目名称(如 MyProject): ").strip()
         if not info["name"]:
             info["name"] = "MyProject"
     
     if args.desc:
         info["desc"] = args.desc
     else:
-        info["desc"] = input("项目简述（一句话）: ").strip()
+        info["desc"] = input("项目简述(一句话): ").strip()
         if not info["desc"]:
             info["desc"] = f"{info['name']} 项目"
     
     if args.tech:
         info["tech"] = args.tech
     else:
-        info["tech"] = input("技术栈（如 Python/FastAPI/Next.js）: ").strip()
+        info["tech"] = input("技术栈(如 Python/FastAPI/Next.js): ").strip()
         if not info["tech"]:
             info["tech"] = "待补充"
     
@@ -80,7 +80,7 @@ def scaffold_docs(docs_root: Path, info: dict, quick: bool):
             p.mkdir(parents=True)
             created.append(f"docs/{d}/")
     
-    # 生成核心文档（如果不存在）
+    # 生成核心文档(如果不存在)
     generators = [
         ("CORE/FEATURES.md", gen_features, info),
         ("CORE/ROADMAP.md", gen_roadmap, info),
@@ -154,20 +154,20 @@ updated: "{now}"
 ---
 # 功能注册表
 
-> **本文件是功能状态的唯一真相来源。**
+> **本文件是功能状态的唯一真相来源.**
 
 ## 统计总表
 
 | 状态 | 数量 | 说明 |
 |------|------|------|
-| ✅ 已完成 | 0 | 已实现并通过验收 |
+| + 已完成 | 0 | 已实现并通过验收 |
 | 🔨 进行中 | 0 | 正在开发 |
 | 📋 待开发 | 0 | 已规划未开始 |
-| ❌ 不做 | 0 | 明确不纳入 |
+| x 不做 | 0 | 明确不纳入 |
 
 ## 功能清单
 
-<!-- 按模块组织，格式：| ID | 功能名 | 状态 | 前端 | 后端 | 说明 | -->
+<!-- 按模块组织,格式:| ID | 功能名 | 状态 | 前端 | 后端 | 说明 | -->
 
 ### 核心功能
 
@@ -186,13 +186,13 @@ updated: "{now}"
 ---
 # 开发路线图
 
-> 项目：{info["name"]}
-> 技术栈：{info["tech"]}
-> 最后更新：{now}
+> 项目:{info["name"]}
+> 技术栈:{info["tech"]}
+> 最后更新:{now}
 
 ## 当前进度
 
-**总体进度：0%**
+**总体进度:0%**
 
 | Phase | 名称 | 状态 | 负责人 | 进度 |
 |-------|------|------|--------|------|
@@ -214,8 +214,8 @@ updated: "{now}"
 ---
 # 技术架构
 
-> 项目：{info["name"]}
-> 技术栈：{info["tech"]}
+> 项目:{info["name"]}
+> 技术栈:{info["tech"]}
 
 ## 系统架构
 
@@ -225,14 +225,14 @@ updated: "{now}"
 
 ```
 {info["name"].lower().replace(" ", "-")}/
-├── docs/          # 项目文档（Agent 记忆）
+├── docs/          # 项目文档(Agent 记忆)
 ├── AGENTS.md      # Agent 协作规范
 └── ...
 ```
 
 ## 技术决策
 
-详见 `docs/ai/DECISIONS.md`。
+详见 `docs/ai/DECISIONS.md`.
 '''
 
 def gen_handoff(info):
@@ -245,7 +245,7 @@ updated: "{now}"
 ---
 # 交接状态
 
-> **本文件 < 100 行，只记录当前状态。**
+> **本文件 < 100 行,只记录当前状态.**
 
 ## 项目信息
 
@@ -264,11 +264,11 @@ updated: "{now}"
 
 ## 关键上下文
 
-首次安装，无历史上下文。
+首次安装,无历史上下文.
 
 ## 重要决策
 
-（暂无）
+(暂无)
 '''
 
 def gen_handoff_log(info):
@@ -281,14 +281,14 @@ updated: "{now}"
 ---
 # 交接日志
 
-> 按时间倒序记录每次交接。
+> 按时间倒序记录每次交接.
 
 ---
 
-### {now} — 初始化
+### {now} - 初始化
 
 - 首次安装 agent-memory-kit
-- 项目：{info["name"]}
+- 项目:{info["name"]}
 '''
 
 def gen_registry(info):
@@ -301,7 +301,7 @@ updated: "{now}"
 ---
 # 文档索引
 
-> 最后更新：{now}
+> 最后更新:{now}
 
 ## 目录
 
@@ -325,18 +325,18 @@ updated: "{now}"
 ---
 # 架构决策记录
 
-> 记录重要技术决策及其理由。
+> 记录重要技术决策及其理由.
 
 ## 决策模板
 
 ### [编号] 决策标题
 
-- **日期**：YYYY-MM-DD
-- **背景**：为什么需要这个决策
-- **选项**：考虑了哪些方案
-- **决策**：选了什么
-- **理由**：为什么选这个
-- **后果**：预期影响
+- **日期**:YYYY-MM-DD
+- **背景**:为什么需要这个决策
+- **选项**:考虑了哪些方案
+- **决策**:选了什么
+- **理由**:为什么选这个
+- **后果**:预期影响
 '''
 
 def gen_prd(info):
@@ -347,9 +347,9 @@ layer: L2
 scope: guides
 updated: "{now}"
 ---
-# 产品需求文档（PRD）
+# 产品需求文档(PRD)
 
-> 项目：{info["name"]}
+> 项目:{info["name"]}
 
 ## 1. 产品概述
 
@@ -365,9 +365,9 @@ updated: "{now}"
 
 ## 4. 非功能需求
 
-- 性能：<!-- 待补充 -->
-- 安全：<!-- 待补充 -->
-- 可用性：<!-- 待补充 -->
+- 性能:<!-- 待补充 -->
+- 安全:<!-- 待补充 -->
+- 可用性:<!-- 待补充 -->
 '''
 
 def gen_ux_checklist(info):
@@ -380,7 +380,7 @@ updated: "{now}"
 ---
 # UX 检查表
 
-> 每个面向用户的功能上线前必须通过以下检查。
+> 每个面向用户的功能上线前必须通过以下检查.
 
 ## 基础检查
 
@@ -389,7 +389,7 @@ updated: "{now}"
 | 1 | 加载状态有提示 | ☐ |
 | 2 | 空状态有引导 | ☐ |
 | 3 | 错误信息用户友好 | ☐ |
-| 4 | 操作有反馈（toast/动画） | ☐ |
+| 4 | 操作有反馈(toast/动画) | ☐ |
 | 5 | 移动端适配 | ☐ |
 
 ## 交互检查
@@ -411,15 +411,15 @@ updated: "{now}"
 ---
 # 调试规则
 
-> **铁律：没有查明根因之前，禁止提出修复方案。**
+> **铁律:没有查明根因之前,禁止提出修复方案.**
 
 ## 调试流程
 
-1. **复现**：确认问题可以稳定复现
-2. **定位**：用日志/断点/二分法找到根因
-3. **验证**：确认根因确实能解释问题
-4. **修复**：针对根因修复，不做无关改动
-5. **回归**：确认修复不引入新问题
+1. **复现**:确认问题可以稳定复现
+2. **定位**:用日志/断点/二分法找到根因
+3. **验证**:确认根因确实能解释问题
+4. **修复**:针对根因修复,不做无关改动
+5. **回归**:确认修复不引入新问题
 
 ## 禁止行为
 
@@ -438,7 +438,7 @@ updated: "{now}"
 ---
 # 事实性规则
 
-> **每个事实性声明必须有命令输出作为证据。**
+> **每个事实性声明必须有命令输出作为证据.**
 
 ## 核心规则
 
@@ -453,7 +453,7 @@ updated: "{now}"
 
 - "大概完成了" → 不接受
 - "不影响功能" → 需要证据
-- "小问题" → 要么修，要么标注
+- "小问题" → 要么修,要么标注
 '''
 
 def gen_report_index(info):
@@ -468,23 +468,23 @@ updated: "{now}"
 
 | 报告 ID | 任务名 | 日期 | 状态 |
 |---------|--------|------|------|
-| RPT-INIT | 项目初始化 | {now} | ✅ |
+| RPT-INIT | 项目初始化 | {now} | + |
 '''
 
 def gen_agents_md(info):
     now = datetime.now().strftime("%Y-%m-%d")
-    return f'''# {info["name"]} — Agent 协作规范
+    return f'''# {info["name"]} - Agent 协作规范
 
-> **本文件是 Agent 的行为准则。新 Agent 接班时必须先读此文件。**
+> **本文件是 Agent 的行为准则.新 Agent 接班时必须先读此文件.**
 
 ---
 
 ## 快速启动
 
-新 Agent 接班时，**只需读 3 份文档即可开工**：
-1. `docs/CORE/FEATURES.md` — 功能注册表
-2. `docs/CORE/ROADMAP.md` — 开发路线图
-3. `docs/ai/HANDOFF.md` — 交接状态
+新 Agent 接班时,**只需读 3 份文档即可开工**:
+1. `docs/CORE/FEATURES.md` - 功能注册表
+2. `docs/CORE/ROADMAP.md` - 开发路线图
+3. `docs/ai/HANDOFF.md` - 交接状态
 
 ---
 
@@ -492,7 +492,7 @@ def gen_agents_md(info):
 
 | # | 检查项 | 要求 |
 |---|--------|------|
-| 1 | 先读后改 | 修改任何文件前，必须先完整阅读该文件 |
+| 1 | 先读后改 | 修改任何文件前,必须先完整阅读该文件 |
 | 2 | 不编造信息 | 不确定的内容必须标注待确认 |
 | 3 | 测试通过才能提交 | 看到实际输出后才能声称完成 |
 | 4 | 文件编码 | 含中文文件必须用 UTF-8 编码 |
@@ -503,8 +503,8 @@ def gen_agents_md(info):
 
 | 目录 | 用途 |
 |------|------|
-| `docs/CORE/` | 核心文档（FEATURES、ROADMAP、ARCHITECTURE） |
-| `docs/ai/` | AI 交接文件（HANDOFF、REGISTRY、记忆协议） |
+| `docs/CORE/` | 核心文档(FEATURES,ROADMAP,ARCHITECTURE) |
+| `docs/ai/` | AI 交接文件(HANDOFF,REGISTRY,记忆协议) |
 | `docs/guides/` | 专题指南 |
 | `docs/api/` | API 文档 |
 | `docs/reports/` | 完工报告 |
@@ -513,7 +513,7 @@ def gen_agents_md(info):
 
 ## 3. Agent 记忆协议
 
-本项目采用**分层记忆加载**，详见 `docs/ai/MEMORY_PROTOCOL.md`。
+本项目采用**分层记忆加载**,详见 `docs/ai/MEMORY_PROTOCOL.md`.
 
 ### 人类指令集
 
@@ -521,7 +521,7 @@ def gen_agents_md(info):
 |------|--------|-----------|
 | 交班 | 交班 | 更新 HANDOFF → 追加 LOG |
 | 接班 | 接班 | 读 HANDOFF → 条件读取上下文 → **自动语义检索** |
-| 语义检索 | 语义检索、搜记忆 | `python memory_rag.py search "query"` |
+| 语义检索 | 语义检索,搜记忆 | `python memory_rag.py search "query"` |
 | 文档同步 | doc-sync | 检查文档一致性 |
 | 项目状态 | 项目状态 | 读取 ROADMAP 汇报进度 |
 
@@ -529,13 +529,13 @@ def gen_agents_md(info):
 
 ## 4. 事实性规则
 
-**每个事实性声明必须有命令输出作为证据。** 详见 `docs/guides/FACTUALITY_RULES.md`。
+**每个事实性声明必须有命令输出作为证据.** 详见 `docs/guides/FACTUALITY_RULES.md`.
 
 ---
 
 ## 5. 调试规则
 
-**没有查明根因之前，禁止提出修复方案。** 详见 `docs/guides/DEBUG_RULES.md`。
+**没有查明根因之前,禁止提出修复方案.** 详见 `docs/guides/DEBUG_RULES.md`.
 
 ---
 
@@ -555,11 +555,11 @@ def write_utf8(path: Path, content: str):
 
 
 # ═══════════════════════════════════════════════════════
-#  6. 后处理：frontmatter + 索引 + 验证
+#  6. 后处理:frontmatter + 索引 + 验证
 # ═══════════════════════════════════════════════════════
 
 def post_process(docs_root: Path):
-    """运行 frontmatter 注入、索引构建、链接验证"""
+    """运行 frontmatter 注入,索引构建,链接验证"""
     results = {}
     
     # 1) frontmatter
@@ -607,7 +607,7 @@ def main():
 示例:
   python setup.py ./docs                        # 交互式
   python setup.py ./docs --name "MyProject"     # 非交互式
-  python setup.py ./docs --quick                # 快速模式（跳过已有）
+  python setup.py ./docs --quick                # 快速模式(跳过已有)
   python setup.py ./docs --skip-rag             # 不建 RAG 索引
         """
     )
@@ -615,7 +615,7 @@ def main():
     parser.add_argument("--name", help="项目名称")
     parser.add_argument("--desc", help="项目简述")
     parser.add_argument("--tech", help="技术栈")
-    parser.add_argument("--quick", action="store_true", help="快速模式（跳过已有文件）")
+    parser.add_argument("--quick", action="store_true", help="快速模式(跳过已有文件)")
     parser.add_argument("--skip-rag", action="store_true", help="跳过 RAG 索引构建")
     parser.add_argument("--skip-agents", action="store_true", help="不生成 AGENTS.md")
     
@@ -642,7 +642,7 @@ def main():
     for f in created_docs:
         print(f"  + {f}")
     if not created_docs:
-        print("  (所有文件已存在，跳过)")
+        print("  (所有文件已存在,跳过)")
     
     # 3) 生成 AGENTS.md
     if not args.skip_agents:
@@ -651,34 +651,34 @@ def main():
         if agents_result:
             print(f"  + {agents_result}")
         else:
-            print("  (已存在，跳过)")
+            print("  (已存在,跳过)")
     
     # 4) 后处理
     if not args.skip_rag:
-        print("\n--- 后处理（frontmatter + 索引 + 验证）---")
+        print("\n--- 后处理(frontmatter + 索引 + 验证)---")
         results = post_process(docs_root)
         for k, v in results.items():
             print(f"  {k}: {v}")
     else:
-        print("\n--- 跳过后处理（--skip-rag）---")
+        print("\n--- 跳过后处理(--skip-rag)---")
     
     # 5) 就绪报告
     print("\n" + "=" * 50)
-    print("  ✅ 安装完成！")
+    print("  + 安装完成！")
     print("=" * 50)
     print(f"""
-下一步：
-  1. 检查 docs/CORE/FEATURES.md — 添加你的功能清单
-  2. 检查 docs/CORE/ROADMAP.md — 规划开发路线
-  3. 检查 docs/ai/HANDOFF.md — 记录当前状态
-  4. 检查 AGENTS.md — 根据项目需要补充协作规范
+下一步:
+  1. 检查 docs/CORE/FEATURES.md - 添加你的功能清单
+  2. 检查 docs/CORE/ROADMAP.md - 规划开发路线
+  3. 检查 docs/ai/HANDOFF.md - 记录当前状态
+  4. 检查 AGENTS.md - 根据项目需要补充协作规范
 
-Agent 记忆协议：
-  - L1 文档（每次接班必读）：CORE/ + ai/AGENT_MEMORY_SCHEMA.md
-  - L2 文档（按需加载）：guides/ + api/ + reports/
-  - 语义检索：python scripts/memory_rag.py search "你的问题"
+Agent 记忆协议:
+  - L1 文档(每次接班必读):CORE/ + ai/AGENT_MEMORY_SCHEMA.md
+  - L2 文档(按需加载):guides/ + api/ + reports/
+  - 语义检索:python scripts/memory_rag.py search "你的问题"
 
-更多说明：README.md
+更多说明:README.md
 """)
 
 if __name__ == "__main__":
