@@ -1,103 +1,199 @@
-﻿# Agent Memory Kit
+﻿# agent-memory-kit
 
-> **一句话**：给任意项目装上"Agent 记忆外挂"——语义检索 + 知识图谱 + 分层加载。
-> **适用**：任何有 `docs/` 目录的中大型长期项目（Python 3.10+）。
-> **独立性**：不依赖任何业务代码，复制即用。
+**AI Agent 记忆基础设施工具包**
+
+> 将"docs治理体系 + Agent外挂记忆"整套方法论快速部署到任意项目。
+> 从 AIruzhi 项目实战中提炼，让每个项目都能拥有结构化的 Agent 记忆。
 
 ---
 
-## 快速开始（3 步，约 15 分钟）
+## 核心理念
+
+传统方式：每个项目从零摸索 → 文档散乱 → Agent 接班靠运气 → 知识随人员流失
+
+agent-memory-kit：一键引导 → 结构化 docs → 分层记忆协议 → 语义检索 → 知识永驻
+
+---
+
+## 快速开始（30 秒）
 
 ```bash
-# Step 1: 安装依赖（首次约 5-10 分钟，含模型下载）
-pip install sentence-transformers --no-deps
-python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2'); print('OK')"
+# 复制到你的项目
+cp -r agent-memory-kit /path/to/your-project/
 
-# Step 2: 初始化（指定你的 docs/ 路径）
-python scripts/setup.py /path/to/your/docs
+# 引导式安装（交互式）
+python agent-memory-kit/scripts/setup.py ./docs
 
-# Step 3: 使用
-python scripts/memory_rag.py search "你的问题" --top_k 5
+# 或者一行命令
+python agent-memory-kit/scripts/setup.py ./docs --name "MyProject" --tech "Python/FastAPI"
 ```
 
-> 如果 `--no-deps` 报错，改用 `pip install sentence-transformers`。
+安装器会自动：
+1. 创建 `docs/` 目录骨架（CORE/ai/guides/api/reports/plans）
+2. 生成 6 个核心文档（FEATURES/ROADMAP/HANDOFF/REGISTRY/DECISIONS/ARCHITECTURE）
+3. 生成 `AGENTS.md`（Agent 协作规范 + 人类指令集）
+4. 注入 Agent 记忆协议（Schema + Protocol + Quickstart）
+5. 为所有 md 文件添加 YAML frontmatter
+6. 构建 RAG 向量索引
+7. 验证文档链接
 
 ---
 
-## 完整功能
+## 产出物
 
-| 命令 | 用途 |
-|------|------|
-| `python scripts/setup.py <docs_path>` | 一键初始化（加 frontmatter + 建索引） |
-| `python scripts/memory_rag.py search "query"` | 语义搜索 |
-| `python scripts/memory_rag.py build` | 全量重建索引 |
-| `python scripts/memory_rag.py update` | 增量更新索引 |
-| `python scripts/memory_rag.py stats` | 索引统计 |
-| `python scripts/memory_rag.py benchmark` | 基准测试 |
-| `python scripts/memory_graph.py validate` | 链接完整性验证 |
-| `python scripts/memory_graph.py export` | 导出 Mermaid 知识图谱 |
-| `python scripts/memory_graph.py stats` | 图谱统计 |
+安装完成后，你的项目会拥有：
+
+### docs/ 目录结构
+
+```
+docs/
+├── CORE/
+│   ├── FEATURES.md      ← 功能注册表（L1，每次必读）
+│   ├── ROADMAP.md       ← 开发路线图（L1）
+│   └── ARCHITECTURE.md  ← 技术架构（L1）
+├── ai/
+│   ├── HANDOFF.md       ← 当前交接状态（L1，<100行）
+│   ├── HANDOFF_LOG.md   ← 交接历史（L2）
+│   ├── REGISTRY.md      ← 文档索引（L2）
+│   ├── DECISIONS.md     ← 架构决策记录（L2）
+│   ├── AGENT_MEMORY_SCHEMA.md  ← 记忆 Schema
+│   ├── MEMORY_PROTOCOL.md      ← 分层加载协议
+│   └── MEMORY_QUICKSTART.md    ← 快速指南
+├── guides/
+│   ├── PRD.md           ← 产品需求文档
+│   ├── UX_CHECKLIST.md  ← UX 检查表
+│   ├── DEBUG_RULES.md   ← 调试规则
+│   └── FACTUALITY_RULES.md ← 事实性规则
+├── api/                 ← API 文档
+├── reports/             ← 完工报告
+└── plans/               ← 计划文档
+```
+
+### AGENTS.md（项目根目录）
+
+- Agent 协作规范
+- 人类指令集（交班/接班/语义检索/doc-sync）
+- 记忆协议引用
+
+### RAG 索引
+
+- SQLite 向量数据库（`memory_index.db`）
+- 支持语义搜索（`python memory_rag.py search "问题"`）
 
 ---
 
-## 目录结构
+## Agent 记忆协议
+
+### 分层加载
+
+| 层级 | 文件数 | 加载时机 | 目的 |
+|------|--------|----------|------|
+| **L1** | 6 | 每次接班必读 | 当前真相 |
+| **L2** | ~40 | 按需加载 | 操作手册 |
+| **L3** | ~180 | 语义检索 | 完整知识库 |
+
+### 人类指令集
+
+| 指令 | 触发词 | Agent 执行 |
+|------|--------|-----------|
+| 交班 | 交班 | 更新 HANDOFF → 追加 LOG |
+| 接班 | 接班 | 读 HANDOFF → 条件读取 → **自动语义检索** |
+| 语义检索 | 语义检索、搜记忆 | `python memory_rag.py search "query"` |
+| 文档同步 | doc-sync | 检查文档一致性 |
+| 项目状态 | 项目状态 | 读取 ROADMAP 汇报进度 |
+
+---
+
+## 工具包内容
 
 ```
 agent-memory-kit/
-├── README.md              ← 你在读的这个文件
-├── SKILL.md               ← Codex/Agent Skill 定义
-├── scripts/
-│   ├── setup.py           ← 一键初始化脚本
-│   ├── add_frontmatter.py ← 批量加 YAML 元数据
-│   ├── memory_rag.py      ← 语义检索引擎（sentence-transformers）
-│   └── memory_graph.py    ← 链接验证 + 图谱导出
-└── docs/
-    ├── AGENT_MEMORY_SCHEMA.md  ← Frontmatter 规范
-    └── MEMORY_PROTOCOL.md      ← L1/L2/L3 加载协议
+├── README.md              ← 本文件
+├── SKILL.md               ← Codex Skill 定义
+├── templates/
+│   └── docs/              ← 文档模板
+│       ├── AGENT_MEMORY_SCHEMA.md
+│       ├── MEMORY_PROTOCOL.md
+│       └── QUICKSTART.md
+└── scripts/
+    ├── setup.py           ← 引导式安装器（主入口）
+    ├── add_frontmatter.py ← frontmatter 注入
+    ├── memory_rag.py      ← 语义搜索引擎
+    └── memory_graph.py    ← 知识图谱工具
 ```
 
 ---
 
-## 复制到新项目
+## 使用场景
+
+### 场景 1：新项目从零开始
 
 ```bash
-# 1. 复制整个文件夹
-cp -r agent-memory-kit /path/to/new-project/tools/memory
+# 1. 安装
+python setup.py ./docs --name "电商平台" --tech "Next.js/PostgreSQL"
 
-# 2. 进入目录
-cd /path/to/new-project/tools/memory
+# 2. 编辑核心文档
+vim docs/CORE/FEATURES.md  # 添加功能清单
+vim docs/CORE/ROADMAP.md   # 规划开发路线
 
-# 3. 初始化（自动扫描 docs/ 加 frontmatter + 建索引）
-python scripts/setup.py ../../docs    # 指向新项目的 docs 路径
+# 3. 开始开发，Agent 自动遵循记忆协议
+```
 
-# 4. 用
-python scripts/memory_rag.py search "新项目的问题"
+### 场景 2：已有项目升级
+
+```bash
+# 1. 安装（快速模式，跳过已有文件）
+python setup.py ./docs --quick
+
+# 2. 为已有文件添加 frontmatter
+python add_frontmatter.py ./docs
+
+# 3. 构建 RAG 索引
+python memory_rag.py build ./docs
+```
+
+### 场景 3：日常使用
+
+```bash
+# Agent 接班时（自动）
+# → 读 HANDOFF.md
+# → 条件加载上下文
+# → 自动语义检索 Top-3
+
+# 人类手动检索
+python memory_rag.py search "如何部署到生产环境"
+
+# 查看知识图谱
+python memory_graph.py stats ./docs
 ```
 
 ---
 
-## 高级配置
+## 适用范围
 
-详见 `SKILL.md`，包含：
-- 更换 Embedding 模型（4 种推荐）
-- 使用 OpenAI Embedding API（零本地开销）
-- 使用国产模型（DeepSeek/Mimo 等）
-- 自定义 frontmatter 规则
-- Codex AGENTS.md 集成方法
+- ✅ 任何有 `docs/` 目录的项目
+- ✅ 任何使用 AI Agent 辅助开发的团队
+- ✅ 任何需要知识传承的长期项目
+- ✅ Codex / Cursor / Claude 等 AI 编程助手
 
 ---
 
-## 技术栈
+## 与 AIruzhi 的关系
 
-| 组件 | 技术 | 说明 |
-|------|------|------|
-| Embedding | paraphrase-multilingual-MiniLM-L12-v2 | 384 维，多语言，~200MB 内存 |
-| 向量存储 | SQLite + struct blob | 零外部依赖 |
-| 检索 | numpy 余弦相似度 | <1s/query |
-| 图谱 | Mermaid + Obsidian 双链 | 可视化 |
+agent-memory-kit 从 AIruzhi 项目中提炼，但**完全独立**：
+
+- 无 AIruzhi 特定代码
+- 无硬编码路径
+- 环境变量可配（`AGENT_MEMORY_DOCS_ROOT`）
+- 可直接复制到任何项目使用
 
 ---
 
-## 许可
+## License
 
-MIT — 复制即用，无需授权。
+MIT — 自由使用、修改、分发。
+
+---
+
+> 打包时间：2026-07-07
+> 来源：AIruzhi 项目 Agent 记忆基础设施实战
