@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 agent-memory-kit 引导式安装器
 ==============================
@@ -618,7 +618,6 @@ def main():
     parser.add_argument("--quick", action="store_true", help="快速模式(跳过已有文件)")
     parser.add_argument("--skip-rag", action="store_true", help="跳过 RAG 索引构建")
     parser.add_argument("--skip-agents", action="store_true", help="不生成 AGENTS.md")
-    parser.add_argument("--update-meta", action="store_true", help="更新已有文档的项目元数据（配合 --tech/--name/--desc 使用）")
     
     args = parser.parse_args()
     
@@ -684,45 +683,3 @@ Agent 记忆协议:
 
 if __name__ == "__main__":
     main()
-
-# ═══════════════════════════════════════════════════════
-#  8. 更新项目元数据
-# ═══════════════════════════════════════════════════════
-
-def update_meta(docs_root: Path, info: dict):
-    """更新已有文档中的项目元数据"""
-    import re
-    updated = []
-    
-    # 需要更新的文件和替换规则
-    updates = [
-        ("CORE/ARCHITECTURE.md", [
-            (r"(技术栈：).*", f"\\1{info.get('tech', '')}"),
-        ]),
-        ("CORE/ROADMAP.md", [
-            (r"(技术栈：).*", f"\\1{info.get('tech', '')}"),
-        ]),
-        ("ai/HANDOFF.md", [
-            (r"(\| 技术栈 \|).*", f"\\1 {info.get('tech', '')} |"),
-        ]),
-        ("guides/PRD.md", [
-            (r"(技术栈：).*", f"\\1{info.get('tech', '')}"),
-        ]),
-    ]
-    
-    for rel_path, patterns in updates:
-        target = docs_root / rel_path
-        if not target.exists():
-            continue
-        
-        content = target.read_text(encoding="utf-8")
-        original = content
-        
-        for pattern, replacement in patterns:
-            content = re.sub(pattern, replacement, content)
-        
-        if content != original:
-            write_utf8(target, content)
-            updated.append(rel_path)
-    
-    return updated
