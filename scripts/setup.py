@@ -82,6 +82,19 @@ def main():
         except Exception as e:
             print(f"  ERROR: {rel}: {e}")
     print(f"  Injected: {ok_count} | Skipped (already has): {skip_count}")
+    # Step 2.5: Copy kit docs to project
+    kit_docs = scripts_dir.parent / "docs"
+    target_ai = docs_path / "ai"
+    target_ai.mkdir(exist_ok=True)
+    for doc in ["AGENT_MEMORY_SCHEMA.md", "MEMORY_PROTOCOL.md"]:
+        src = kit_docs / doc
+        dst = target_ai / doc
+        if src.exists() and not dst.exists():
+            import shutil
+            shutil.copy2(src, dst)
+            print(f"  Copied {doc} to {dst.relative_to(docs_path.parent)}")
+        elif dst.exists():
+            print(f"  {doc} already exists in project, skipping")
 
     # Step 3: Model check
     if not skip_model:
