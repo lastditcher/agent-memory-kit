@@ -524,6 +524,7 @@ def gen_agents_md(info):
 | 语义检索 | 语义检索,搜记忆 | `python memory_rag.py search "query"` |
 | 文档同步 | doc-sync | 检查文档一致性 |
 | 项目状态 | 项目状态 | 读取 ROADMAP 汇报进度 |
+| 更新项目信息 | 更新项目信息、技术栈变了、依赖更新 | 1）检查实际代码依赖；2）运行 `python agent-memory-kit/scripts/update-meta.py ./docs --tech "新栈"`；3）更新 HANDOFF.md |
 
 ---
 
