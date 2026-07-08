@@ -618,6 +618,7 @@ def main():
     parser.add_argument("--tech", help="技术栈")
     parser.add_argument("--quick", action="store_true", help="快速模式(跳过已有文件)")
     parser.add_argument("--skip-rag", action="store_true", help="跳过 RAG 索引构建")
+    parser.add_argument("--with-rag", action="store_true", help="安装骨架 + 自动安装 sentence-transformers 并构建 RAG 索引")
     parser.add_argument("--skip-agents", action="store_true", help="不生成 AGENTS.md")
     parser.add_argument("--update-meta", action="store_true", help="更新已有文档的项目元数据（配合 --tech/--name/--desc 使用）")
     
